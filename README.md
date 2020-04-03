@@ -19,6 +19,10 @@ Works great with Ned Batchelder's CogApp.(link)
 - structs
 - header files
 
+## Requirements
+
+Codegen uses clang-format to clean up its output
+
 ## Installation
 
 ```
@@ -33,7 +37,9 @@ pip install .
 ```
 >>> import codegen as code
 ```
+
 Let's create the simplest possible function:
+
 ```
 >>> code.format(code.function())
 'void func(void);'
