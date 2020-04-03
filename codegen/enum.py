@@ -1,26 +1,50 @@
-def enum(name='', values=[], prefix='', postfix='', options=[]):
-    enum = []
+class Enum():
+    def __init__(self,
+                 name='',
+                 values=[],
+                 prefix='',
+                 postfix='',
+                 explicit=False,
+                 typedef=False):
+        self.name = name
+        self.values = values
+        self.prefix = prefix
+        self.postfix = postfix
+        self.explicit = explicit
+        self.typedef = typedef
 
-    if 'typedef' in options:
-        enum.append('typedef enum {')
-    else:
-        enum.append(f'enum {name} {{')
+    def assemble(self):
+        enum = []
 
-    if isinstance(values, list):
-        if 'explicit' in options:
-            [
-                enum.append(f'{prefix}{v}{postfix} = {i},')
-                for i, v
-                in enumerate(values)
-            ]
+        if self.typedef:
+            enum.append('typedef enum {')
         else:
-            [enum.append(f'{prefix}{v}{postfix},') for v in values]
-    elif isinstance(values, dict):
-        [enum.append(f'{prefix}{v}{postfix} = {values[v]},') for v in values]
+            enum.append(f'enum {self.name} {{')
 
-    if 'typedef' in options:
-        enum.append(f'}} {name};')
-    else:
-        enum.append('};')
+        if isinstance(self.values, list):
+            if self.explicit:
+                [
+                    enum.append(f'{self.prefix}{v}{self.postfix} = {i},')
+                    for i, v
+                    in enumerate(self.values)
+                ]
+            else:
+                [
+                    enum.append(f'{self.prefix}{v}{self.postfix},')
+                    for v
+                    in self.values
+                ]
+        elif isinstance(self.values, dict):
+            [
+                enum.append(
+                    f'{self.prefix}{v}{self.postfix} = {self.values[v]},')
+                for v
+                in self.values
+            ]
 
-    return enum
+        if self.typedef:
+            enum.append(f'}} {self.name};')
+        else:
+            enum.append('};')
+
+        return enum
