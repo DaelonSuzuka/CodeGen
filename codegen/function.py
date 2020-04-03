@@ -1,28 +1,44 @@
-def function(name='func', ret='void', params='void', body=None, options=[]):
-    if isinstance(params, str):
-        pass
-    else:
-        params = ', '.join(params)
+class Function():
+    def __init__(self,
+                 name='func',
+                 return_type='void',
+                 params='void',
+                 body=None,
+                 extern=False,
+                 static=False,
+                 ):
+        self.name = name
+        self.return_type = return_type
+        if isinstance(params, str):
+            self.params = params
+            pass
+        else:
+            self.params = ', '.join(params)
 
-    signature = ''
+        self.body = body
+        self.extern = extern
+        self.static = static
 
-    if 'extern' and 'static' in options:
-        raise Exception(f'conflicting options provided: {options}')
+    def signature(self):
+        if self.extern and self.static :
+            raise Exception(f'conflicting options provided')
 
-    if 'extern' in options:
-        signature += 'extern '
+        signature = ''
+        if self.extern:
+            signature += 'extern '
+        if self.static:
+            signature += 'static '
+        signature += f'{self.return_type} {self.name} ({self.params})'
 
-    if 'static' in options:
-        signature += 'static '
+        return signature
 
-    signature += f'{ret} {name} ({params})'
+    def assemble(self):
+        function = [self.signature()]
+        if self.body:
+            function.append('{')
+            [function.append(line) for line in body]
+            function.append('}')
+        else:
+            function.append(';')
 
-    function = [signature]
-    if body:
-        function.append('{')
-        [function.append(line) for line in body]
-        function.append('}')
-    else:
-        function.append(';')
-
-    return function
+        return function
