@@ -1,7 +1,7 @@
 from subprocess import Popen, PIPE
 
 
-def format(text):
+def fmt(text):
     if isinstance(text, str):
         pass
     else:

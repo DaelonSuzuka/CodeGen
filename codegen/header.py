@@ -1,5 +1,5 @@
 from pathlib import Path
-from codegen.utils import hrule, format
+from codegen.utils import hrule, fmt
 
 class Header():
     contents = []
@@ -53,7 +53,7 @@ class Header():
             '',
             f'#endif /* {self.guard} */',
         ])
-        return format(header)
+        return fmt(header)
 
     def write(self):
         with open(self.name, 'w') as f:
