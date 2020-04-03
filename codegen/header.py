@@ -2,15 +2,19 @@ from pathlib import Path
 from codegen.utils import hrule, fmt
 
 class Header():
-    contents = []
-    includes = []
     name = ''
     guard = ''
+    contents = []
+    includes = []
 
     def __init__(self, name='', contents=[], includes=[]):
         self.set_name(name)
         self.add_contents(contents)
         self.add_includes(includes)
+
+    def set_name(self, name):
+        self.name = name
+        self.guard = '_' + Path(name).name.replace('.', '_').upper() + '_'
 
     def add_includes(self, includes=[]):
         if includes:
@@ -29,10 +33,6 @@ class Header():
 
     def erase_contents(self):
         self.contents = []
-
-    def set_name(self, name):
-        self.name = name
-        self.guard = '_' + Path(name).name.replace('.', '_').upper() + '_'
 
     def assemble(self):
         header = [
