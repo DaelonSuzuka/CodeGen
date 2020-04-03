@@ -1,12 +1,12 @@
 class Struct():
     name = ''
     members = []
-    options = []
+    typedef = False
 
-    def __init__(self, name='', members=[], options=[]):
+    def __init__(self, name='', members=[], typedef=False):
         self.name = name
-        self.options = options
         self.members = members
+        self.typedef = typedef
 
     def erase_contents(self):
         self.members = []
@@ -30,14 +30,14 @@ class Struct():
     def assemble(self):
         struct = []
 
-        if 'typedef' in self.options:
+        if self.typedef:
             struct.append('typedef struct {')
         else:
             struct.append(f'struct {self.name} {{')
 
         [struct.append(f'{m};') for m in self.members]
 
-        if 'typedef' in self.options:
+        if self.typedef:
             struct.append(f'}} {self.name};')
         else:
             struct.append('};')
