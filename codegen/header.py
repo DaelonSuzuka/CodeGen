@@ -18,8 +18,11 @@ class Header():
 
     def add_includes(self, includes=[]):
         if includes:
-            [self.includes.append(f'#include {i}') for i in includes]
-            self.includes.append('')
+            if isinstance(includes, str):
+                self.includes.append(f'#include {includes}')
+            elif isinstance(includes, list):
+                [self.includes.append(f'#include {i}') for i in includes]
+                self.includes.append('')
 
     def add_contents(self, contents=[]):
         def flatten(list_of_lists):
