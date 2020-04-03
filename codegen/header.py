@@ -1,5 +1,5 @@
 from pathlib import Path
-from code_gen.utils import hrule, format
+from codegen.utils import hrule, format
 
 class Header():
     contents = []
