@@ -11,7 +11,6 @@ class Function():
         self.return_type = return_type
         if isinstance(params, str):
             self.params = params
-            pass
         else:
             self.params = ', '.join(params)
 
@@ -34,7 +33,7 @@ class Function():
 
     def assemble(self):
         function = [self.signature()]
-        if self.body:
+        if self.body and not self.extern:
             function.append('{')
             [function.append(line) for line in body]
             function.append('}')
