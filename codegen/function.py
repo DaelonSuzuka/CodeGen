@@ -41,3 +41,21 @@ class Function():
             function.append(';')
 
         return function
+
+    def declaration(self):
+        return self.signature() + ';'
+
+    def definition(self):
+        function = [self.signature()]
+
+        if self.body:
+            function.append('{')
+            [function.append(line) for line in body]
+            function.append('}')
+        return function
+
+    def call(self, arguments):
+        return f'{self.name}({",".join(arguments)})'
+
+    def from_text(self, text):
+        pass
