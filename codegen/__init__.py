@@ -5,3 +5,4 @@ from codegen.enum import *
 from codegen.function import *
 from codegen.types import *
 from codegen.variable import *
+from codegen.pins import *
