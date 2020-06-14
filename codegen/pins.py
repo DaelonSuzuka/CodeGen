@@ -169,7 +169,7 @@ def pins_init():
         if "analog" in p.tags:
             line(f"    ANSEL{p.pin[0]}bits.ANSEL{p.pin} = 1;")
         if "button" in p.tags:
-            line(f"    WPU{p.pin[0]}bits.WPU{p.pin} = 0;")
+            line(f"    WPU{p.pin[0]}bits.WPU{p.pin} = 1;")
 
         line("")
     line("}")
